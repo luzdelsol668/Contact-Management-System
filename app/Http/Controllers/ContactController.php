@@ -189,18 +189,28 @@ class ContactController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validatedData = $request->validate([
+        $validatedRequest = $request->validate([
             'name' => 'required',
             'email' => 'required|email',
             'contact' => 'required|max:9',
         ]);
 
+        $existing_data_checker = DB::table('contacts')
+            ->where('email', $validatedRequest['email'])
+            ->orWhere('contact', $validatedRequest['contact'])
+            ->first();
+
+        if ($existing_data_checker) {
+            return redirect()->back()->with('error', 'Contact already exists with the same email or phone.');
+        }
+
+
         DB::table('contacts')
             ->where('id', $id)
             ->update([
-                'name' => $validatedData['name'],
-                'email' => $validatedData['email'],
-                'contact' => $validatedData['contact'],
+                'name' => $validatedRequest['name'],
+                'email' => $validatedRequest['email'],
+                'contact' => $validatedRequest['contact'],
                 'updated_at' => now(),
             ]);
 

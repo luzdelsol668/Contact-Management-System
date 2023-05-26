@@ -25,6 +25,11 @@
                                 <span class="small">{{ session()->get('success') }}</span>
                             </div>
                         @endif
+                            @if(session()->has('error'))
+                            <div class="alert alert-danger">
+                                <span class="small">{{ session()->get('error') }}</span>
+                            </div>
+                        @endif
                     </div>
 
                     <form  method="post">

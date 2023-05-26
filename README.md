@@ -11,6 +11,9 @@ Email: `luzkoumedzrolv@demo.com`
 
 Password: `demoadmin` 
 
+You can use any email inserted in the database, but with the password test `demoadmin` 
+
+
 ## Application Features
 
 The web application has 5 features:
